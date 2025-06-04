@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Docx NLP Analyzer</title>
+</head>
+<body>
+    <h2>Upload .docx Files</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="files" multiple required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if keywords %}
+    <h3>Top Keywords:</h3>
+    <ul>
+        {% for word, freq in keywords %}
+        <li>{{ word }}: {{ freq }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if similarity|length > 0 %}
+    <h3>TF-IDF Similarity Matrix:</h3>
+    <table border="1">
+        {% for row in similarity %}
+        <tr>
+            {% for value in row %}
+            <td>{{ '%.2f'|format(value) }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
